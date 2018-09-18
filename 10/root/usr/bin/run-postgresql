@@ -40,8 +40,13 @@ process_extending_files \
     "${APP_DATA}/src/postgresql-start" \
     "${CONTAINER_SCRIPTS_PATH}/start"
 
+echo "Starting CREATE EXTENSION..."
+psql postgres -c "CREATE EXTENSION imgsmlr;"
+echo "Finished CREATE EXTENSION..."
+
 pg_ctl stop
 
 unset_env_vars
 echo "Starting server..."
 exec postgres "$@"
+# exec postgres "$@" 后面的语句(下面的)根本得不到执行

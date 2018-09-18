@@ -1,5 +1,7 @@
 FROM centos/s2i-core-centos7
 
+MAINTAINER "Leon" <lebrosoft@aliyun.com>
+
 # PostgreSQL image for OpenShift.
 # Volumes:
 #  * /var/lib/psql/data   - Database cluster for PostgreSQL
@@ -33,9 +35,13 @@ LABEL summary="$SUMMARY" \
       usage="docker run -d --name postgresql_database -e POSTGRESQL_USER=user -e POSTGRESQL_PASSWORD=pass -e POSTGRESQL_DATABASE=db -p 5432:5432 centos/postgresql-10-centos7" \
       maintainer="SoftwareCollections.org <sclorg@redhat.com>"
 
-EXPOSE 5432
+EXPOSE 5433
 
 COPY root/usr/libexec/fix-permissions /usr/libexec/fix-permissions
+
+#
+COPY imgsmlr /opt/app-root/imgsmlr
+WORKDIR /opt/app-root/imgsmlr/
 
 # This image must forever use UID 26 for postgres user so our volumes are
 # safe in the future. This should *never* change, the last test is there
@@ -46,12 +52,20 @@ RUN yum install -y centos-release-scl-rh && \
     INSTALL_PKGS="rsync tar gettext bind-utils nss_wrapper rh-postgresql10 rh-postgresql10-postgresql-contrib rh-postgresql96-postgresql-server" && \
     yum -y --setopt=tsflags=nodocs install $INSTALL_PKGS && \
     rpm -V $INSTALL_PKGS && \
-    yum clean all && \
     localedef -f UTF-8 -i en_US en_US.UTF-8 && \
     test "$(id postgres)" = "uid=26(postgres) gid=26(postgres) groups=26(postgres)" && \
     mkdir -p /var/lib/pgsql/data && \
     /usr/libexec/fix-permissions /var/lib/pgsql && \
-    /usr/libexec/fix-permissions /var/run/postgresql
+    /usr/libexec/fix-permissions /var/run/postgresql && \
+    yum -y install gd-devel && \
+    yum install -y rh-postgresql10-postgresql-devel && \
+    yum -y install make && \
+    yum -y install gcc && \
+    export PATH=/opt/rh/rh-postgresql10/root/usr/bin:$PATH && \
+    make USE_PGXS=1 && \
+    make USE_PGXS=1 install && \
+    yum clean all
+    #yum remove make and gcc?
 
 # Get prefix path and path to scripts rather than hard-code them in scripts
 ENV CONTAINER_SCRIPTS_PATH=/usr/share/container-scripts/postgresql \
