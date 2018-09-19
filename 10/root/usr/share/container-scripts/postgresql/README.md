@@ -12,19 +12,25 @@ Modified:
 -----------
 
 Dockerfile:
-copy imgsmlr
-make install imgsmlr
+copy imgsmlr 
+make install imgsmlr 
 
-/root/user/bin/run-postgresql:
-install imgsmlr as pg extension
+/root/user/bin/run-postgresql: 
+install imgsmlr as pg extension 
 
 How to use:
 -----------
 
+```
 docker build -t postgres10_imgsmlr_centos7 .
-docker run -d --name postgres10_imgsmlr_centos7 -e POSTGRESQL_ADMIN_PASSWORD='password' -p 5433:5432 postgres10_imgsmlr_centos7
+```
 
-You will have a container with PG and imgsmlr extension installed already.
+```
+docker run -d --name postgres10_imgsmlr_centos7 -e POSTGRESQL_ADMIN_PASSWORD='password' -p 5433:5432 postgres10_imgsmlr_centos7
+```
+
+You will have a container with PG and imgsmlr extension installed already. 
+
 
 Description
 -----------
