@@ -1,21 +1,14 @@
-PostgreSQL 10 SQL Database Server container image
-===============================================
-
-This container image includes PostgreSQL 10 SQL database server for OpenShift and general usage.
-Users can choose between RHEL and CentOS based images.
-The RHEL image is available in the [Red Hat Container Catalog](https://access.redhat.com/containers/#/registry.access.redhat.com/rhscl/postgresql-10-rhel7)
-as registry.access.redhat.com/rhscl/postgresql-10-rhel7.
-The CentOS image is then available on [Docker Hub](https://hub.docker.com/r/centos/postgresql-10-centos7/)
-as centos/postgresql-10-centos7.
-
 Modified:
 -----------
 
 Dockerfile:
+
 copy imgsmlr 
+
 make install imgsmlr 
 
 /root/user/bin/run-postgresql: 
+
 install imgsmlr as pg extension 
 
 How to use:
@@ -30,6 +23,18 @@ docker run -d --name postgres10_imgsmlr_centos7 -e POSTGRESQL_ADMIN_PASSWORD='pa
 ```
 
 You will have a container with PG and imgsmlr extension installed already. 
+
+PostgreSQL 10 SQL Database Server container image
+===============================================
+
+This container image includes PostgreSQL 10 SQL database server for OpenShift and general usage.
+Users can choose between RHEL and CentOS based images.
+The RHEL image is available in the [Red Hat Container Catalog](https://access.redhat.com/containers/#/registry.access.redhat.com/rhscl/postgresql-10-rhel7)
+as registry.access.redhat.com/rhscl/postgresql-10-rhel7.
+The CentOS image is then available on [Docker Hub](https://hub.docker.com/r/centos/postgresql-10-centos7/)
+as centos/postgresql-10-centos7.
+
+
 
 
 Description
