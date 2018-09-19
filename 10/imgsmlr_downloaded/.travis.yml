@@ -1,0 +1,31 @@
+os:
+  - linux
+
+sudo: required
+dist: trusty
+
+language: c
+
+compiler:
+  - clang
+  - gcc
+
+before_install:
+  - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then sudo apt-get -y install -qq wget ca-certificates; fi
+  - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then source ./travis/dep-ubuntu-postgres.sh; fi
+  - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then source ./travis/dep-ubuntu-llvm.sh; fi
+  - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then sudo apt-get update -qq; fi
+
+env:
+  global:
+    - LLVM_VER=4.0
+  matrix:
+    - PG_VER=10  CHECK_TYPE=normal
+    - PG_VER=10  CHECK_TYPE=static
+    - PG_VER=10  CHECK_TYPE=valgrind
+    - PG_VER=9.6 CHECK_TYPE=normal
+    - PG_VER=9.6 CHECK_TYPE=static
+    - PG_VER=9.5 CHECK_TYPE=normal
+    - PG_VER=9.5 CHECK_TYPE=static
+
+script: bash ./travis/pg-travis-test.sh
