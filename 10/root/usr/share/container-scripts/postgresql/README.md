@@ -20,6 +20,10 @@ docker run -d --name postgres10_imgsmlr_centos7 -e POSTGRESQL_ADMIN_PASSWORD='pa
 
 You will have a container with PG and imgsmlr extension installed already. 
 
+Or pull from docker hub:  
+https://hub.docker.com/r/lebrosoft/postgres10_imgsmlr_centos7/
+
+
 PostgreSQL 10 SQL Database Server container image
 ===============================================
 
