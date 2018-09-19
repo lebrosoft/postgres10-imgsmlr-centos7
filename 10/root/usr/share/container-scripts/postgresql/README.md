@@ -8,6 +8,23 @@ as registry.access.redhat.com/rhscl/postgresql-10-rhel7.
 The CentOS image is then available on [Docker Hub](https://hub.docker.com/r/centos/postgresql-10-centos7/)
 as centos/postgresql-10-centos7.
 
+Modified:
+-----------
+
+Dockerfile:
+copy imgsmlr
+make install imgsmlr
+
+/root/user/bin/run-postgresql:
+install imgsmlr as pg extension
+
+How to use:
+-----------
+
+docker build -t postgres10_imgsmlr_centos7 .
+docker run -d --name postgres10_imgsmlr_centos7 -e POSTGRESQL_ADMIN_PASSWORD='password' -p 5433:5432 postgres10_imgsmlr_centos7
+
+You will have a container with PG and imgsmlr extension installed already.
 
 Description
 -----------
