@@ -1,15 +1,11 @@
 Modified:
 -----------
 
-Dockerfile:
-
-copy imgsmlr 
-
-make install imgsmlr 
-
-/root/user/bin/run-postgresql: 
-
-install imgsmlr as pg extension 
+**`Dockerfile:`**  
+copy imgsmlr  
+make install imgsmlr  
+**`/root/user/bin/run-postgresql:`**  
+install imgsmlr as pg extension  
 
 How to use:
 -----------
